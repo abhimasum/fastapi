@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    ports:
+      - "8080:8080"
+    environment:
+      - APP_NAME=Industrial Plant API
+      - ENVIRONMENT=development
+      - DEBUG=true
+      - SECRET_KEY=local-dev-secret-key-change-in-production-32chars
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
+      - REFRESH_TOKEN_EXPIRE_DAYS=7
+      - RATE_LIMIT_REQUESTS=1000
+      - RATE_LIMIT_WINDOW_SECONDS=60
+      - ALLOWED_ORIGINS=http://localhost:3000,http://localhost:8080
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
