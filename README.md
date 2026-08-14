@@ -73,7 +73,7 @@ Choose your package manager below and follow step-by-step!
 - Perfect for learning
 
 **Prerequisites:**
-- Python 3.12+ installed
+- Python 3.12+ installed ([Download Python 3.12.7](https://www.python.org/ftp/python/3.12.7/python-3.12.7-amd64.exe))
 - `uv` installed (see Step 0 below)
 
 #### Step 0️⃣: Install `uv` (one-time)
@@ -93,7 +93,7 @@ uv --version
 
 #### Step 1️⃣: Navigate to project folder
 ```bash
-cd "c:\Abhishek\OtherAndResearch\Learning Practical\FastApi\fastapi_app"
+cd ".\fastapi_app"
 ```
 
 #### Step 2️⃣: Sync dependencies (auto-creates .venv)
@@ -166,7 +166,7 @@ Open browser: **http://localhost:8000/docs**
 - Interactive Swagger UI documentation
 - All endpoints listed
 - "Try it out" button to test endpoints
-- Login endpoint available
+- See "API Overview" section for test user credentials
 
 #### Step 7️⃣: Try login endpoint
 1. Click on `POST /api/v1/auth/login`
@@ -242,7 +242,7 @@ uv lock                   # Regenerate lock file
 - More manual setup required
 
 **Prerequisites:**
-- Python 3.12+ installed
+- Python 3.12+ installed ([Download Python 3.12.7](https://www.python.org/ftp/python/3.12.7/python-3.12.7-amd64.exe))
 - `pip` comes automatically with Python
 
 #### Step 1️⃣: Check Python version
@@ -329,10 +329,16 @@ Installing collected packages: fastapi, pydantic, uvicorn, ...
 Successfully installed fastapi-0.115.5 uvicorn-0.32.1 ... (41 packages)
 ```
 
-#### Step 7️⃣: Copy environment file
+#### Step 7️⃣: Copy environment file & configure
 ```bash
 Copy-Item .env.example .env
 ```
+
+**What's in `.env`?**
+- Database settings
+- JWT secret key (generate a long random string)
+- API configuration
+- Environment mode (development/production)
 
 #### Step 8️⃣: Run development server
 ```bash
@@ -347,13 +353,9 @@ INFO:     Application startup complete.
 ```
 
 #### Step 9️⃣: Test the API
-Open: **http://localhost:8000/docs**
+Open browser: **http://localhost:8000/docs**
 
-**Login test:**
-1. POST `/api/v1/auth/login`
-2. Username: `admin`
-3. Password: `Admin@123`
-4. Click "Execute"
+See "API Overview" section above for test user credentials and endpoints.
 
 #### 🔟: Run tests
 ```bash
@@ -388,79 +390,6 @@ pip install -r requirements.txt    # Install from file
 | **Industry Use** | Growing rapidly | Everywhere |
 
 **Recommendation for Learning: Start with `uv` ⭐**
-
----
-
-## Quick Start
-
-### Using `uv` (Recommended - faster & simpler)
-
-```bash
-# 1. Clone and enter project
-cd fastapi_app
-
-# 2. Sync dependencies (creates .venv and uv.lock)
-uv sync
-
-# 3. Set environment variables
-cp .env.example .env
-
-# 4. Activate the virtual environment
-.venv\Scripts\Activate.ps1    # Windows PowerShell
-source .venv/bin/activate     # macOS/Linux
-
-# 5. Run the server
-uvicorn app.main:app --reload --port 8000
-
-# 6. Open Swagger UI
-open http://localhost:8000/docs
-
-# 7. Run tests with coverage
-uv run pytest --cov=app --cov-report=term-missing -v
-
-# 8. Add a new dependency
-uv add requests
-uv add --dev black  # dev dependency
-```
-
-### Using `pip` (Traditional approach)
-
-```bash
-# 1. Clone and enter project
-cd fastapi_app
-
-# 2. Create virtual environment
-python -m venv .venv
-.venv\Scripts\activate.ps1    # Windows PowerShell
-source .venv/bin/activate     # macOS/Linux
-
-# 3. Install dependencies
-pip install -r requirements.txt
-pip install -r requirements-dev.txt
-
-# 4. Set environment variables
-cp .env.example .env
-# Edit .env and set SECRET_KEY to a long random string
-
-# 5. Run the server
-uvicorn app.main:app --reload --port 8000
-
-# 6. Open Swagger UI
-open http://localhost:8000/docs
-
-# 7. Run tests with coverage
-pytest --cov=app --cov-report=term-missing -v
-```
-
-### Using `uv run` (Direct execution)
-
-```bash
-# Run server without activation
-uv run uvicorn app.main:app --reload --port 8000
-
-# Run tests
-uv run pytest --cov=app --cov-report=term-missing -v
-```
 
 ---
 
@@ -664,16 +593,9 @@ TOTAL                     140      6    96%
 ### Test Data (Fixtures)
 
 Tests use seeded in-memory database with:
-- 3 test users (admin, operator, viewer)
+- 3 test users (admin, operator, viewer) - see table in API Overview section above
 - Fresh DB per test (isolation)
 - No external dependencies
-
-**Test Users:**
-```
-Username: admin    | Password: Admin@123    | Role: admin
-Username: operator | Password: Operator@123 | Role: operator
-Username: viewer   | Password: Viewer@123   | Role: viewer
-```
 
 ### Using uv to Run Tests
 
