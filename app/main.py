@@ -6,6 +6,8 @@ Startup order matters:
 2. Middleware (LIFO — last added is outermost)
 3. Routers
 """
+import warnings
+warnings.filterwarnings('ignore', message='.*bcrypt.*')
 import logging
 import logging.config
 
@@ -103,11 +105,21 @@ All protected endpoints require a JWT access token.
         description="Returns 200 OK if the service is running. Used by Cloud Run health probes.",
     )
     def health_check() -> HealthResponse:
-        return HealthResponse(
+        logger = logging.getLogger(__name__)
+        
+        # Debug: Log health check call
+        logger.debug("🏥 Health check endpoint called")
+        logger.debug(f"📊 Settings: version={settings.app_version}, environment={settings.environment}")
+        
+        response = HealthResponse(
             status="ok",
             version=settings.app_version,
             environment=settings.environment,
         )
+        
+        # Debug: Log response
+        logger.debug(f"✅ Health check response: {response}")
+        return response
 
     return app
 

@@ -26,28 +26,54 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+.pytype/
+.mypy_cache/
+.dmypy.json
+dmypy.json
 
 # Testing
 .pytest_cache/
 .coverage
+.coverage.*
 htmlcov/
 .tox/
+.hypothesis/
 
 # IDE
-.vscode/
 .idea/
-*.swp
-*.swo
-*~
-.DS_Store
+.vs/
+.vscode/extensions
+.vscode/settings.json
+!.vscode/launch.json
 
 # uv/pip
-uv.lock
 requirements.lock
 pip-log.txt
 pip-delete-this-directory.txt
 
+# Ruff
+.ruff_cache/
+
 # OS
 .DS_Store
 Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Environment
+.envrc
+
+# Build artifacts
+*.whl
+*.tar.gz
+dist/
+build/
 .coverage
